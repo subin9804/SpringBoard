@@ -1,5 +1,6 @@
 package org.subin.bootBoard.commons.validator;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface PasswordValidator {
@@ -31,8 +32,9 @@ public interface PasswordValidator {
      * @return
      */
     default boolean numberCheck(String password) {
-
-        return password.matches("\\d+");    // [0-9]+
+        Pattern pattern = Pattern.compile("\\d");    // [0-9]+
+        Matcher matcher = pattern.matcher(password);
+        return matcher.find();
     }
 
     /**
@@ -41,7 +43,7 @@ public interface PasswordValidator {
      * @return
      */
     default boolean specialCharsCheck(String password) {
-
-        return password.matches("[~!#$%^&*()-_+=]+");
+        Pattern pattern = Pattern.compile("[`~!#$%\\^&\\*()-_+=]+");
+        return pattern.matcher(password).find();
     }
 }

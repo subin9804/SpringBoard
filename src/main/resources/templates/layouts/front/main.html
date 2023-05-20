@@ -7,6 +7,7 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}">
 
         <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
         <Link rel="stylesheet" type="text/css" th:href="@{/css/front/style.css?v={v}(v=${cssJsVersion})}">
         <Link rel="stylesheet" type="text/css" th:each="file : ${addCss}" th:href="@{/css/front/{cssFile}.css?v={v}(cssFile=${file}, v=${cssJsVersion})}">
@@ -15,8 +16,6 @@
         <script th:src="@{/js/front/common.js?v={v}(v=${cssJsVersion})}"></script>
         <stript th:each="file : ${addScript}" th:src="@{/js/front/{jsFile}.js?v={v}(jsFile=${jsFile}, v=${cssJsVersion})}"></stript>
         <th:block layout:fragment="addScript"></th:block>
-
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     </head>
     <body>
         <header th:replace="~{outlines/front/header::common}"></header>
