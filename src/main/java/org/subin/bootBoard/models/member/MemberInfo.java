@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.subin.bootBoard.constants.Role;
 
 import java.util.Collection;
 
@@ -19,6 +20,7 @@ public class MemberInfo implements UserDetails {
     private String userNm;
     private String email;
     private String mobile;
+    private Role roles;
 
 
     private Collection<GrantedAuthority> authorities;
