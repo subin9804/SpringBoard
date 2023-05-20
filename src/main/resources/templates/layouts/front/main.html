@@ -15,6 +15,8 @@
         <script th:src="@{/js/front/common.js?v={v}(v=${cssJsVersion})}"></script>
         <stript th:each="file : ${addScript}" th:src="@{/js/front/{jsFile}.js?v={v}(jsFile=${jsFile}, v=${cssJsVersion})}"></stript>
         <th:block layout:fragment="addScript"></th:block>
+
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     </head>
     <body>
         <header th:replace="~{outlines/front/header::common}"></header>

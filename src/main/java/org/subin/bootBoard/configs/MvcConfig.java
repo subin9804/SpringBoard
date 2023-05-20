@@ -48,11 +48,12 @@ public class MvcConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.setBasenames("message.commons", "messages.validations", "messages.errors");
+        ms.setBasenames("messages.commons", "messages.validations", "messages.errors");
 
         return ms;
     }
 
+    @Bean
     public HiddenHttpMethodFilter httpMethodFilter() {  // GET, POST 외에 DELETE, PATCH, PUT을 사용가능하게 함
         return new HiddenHttpMethodFilter();
     }

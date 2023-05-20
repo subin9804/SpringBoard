@@ -13,13 +13,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .defaultSuccessUrl("/")
-                .failureUrl("/member/login")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/login"));
-
+//        http.formLogin()
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/member/login")
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/member/login"));
+//
 
 
 

@@ -7,7 +7,7 @@ public interface MobileValidator {
         mobile = mobile.replaceAll("\\D", "");  // 숫자가 아닌 글자를 ""로 대체
 
         // 2. 패턴 생성 체크
-        String pattern = "^01[016]\\d{3, 4}\\d{4}$";
+        String pattern = "^01[016]\\d{3,4}\\d{4}$";
 
 
         return mobile.matches(pattern);

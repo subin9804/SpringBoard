@@ -5,11 +5,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.subin.bootBoard.commons.validator.MobileValidator;
+import org.subin.bootBoard.commons.validator.PasswordValidator;
 import org.subin.bootBoard.repositories.MemberRepository;
 
 @Component
 @RequiredArgsConstructor
-public class JoinValidator implements Validator, MobileValidator {
+public class JoinValidator implements Validator, MobileValidator, PasswordValidator {
 
     private final MemberRepository memberRepository;
 
@@ -44,7 +45,9 @@ public class JoinValidator implements Validator, MobileValidator {
         }
 
         // 2. 비밀번호 복잡성 체크(알파벳(대문자, 소문자), 숫자, 특수문자))
-
+        if(userPw != null && !userPw.isBlank() && (!alphaCheck(userPw, false) || !numberCheck(userPw) || !specialCharsCheck(userPw))){
+            errors.rejectValue("userPw", "Validation.complexity.userPw");
+        }
 
 
 
