@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.subin.bootBoard.constants.Role;
 
 @Entity @Builder @Data
 @NoArgsConstructor @AllArgsConstructor
@@ -34,4 +35,8 @@ public class Member extends BaseEntity{
 
     @Lob
     private String termsAgree;  // 약관 동의 내역
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private Role roles = Role.USER;
 }

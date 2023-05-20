@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.subin.bootBoard.constants.Role;
 import org.subin.bootBoard.controllers.members.JoinForm;
 import org.subin.bootBoard.entities.Member;
 import org.subin.bootBoard.repositories.MemberRepository;
@@ -21,6 +22,8 @@ public class MemberSaveService {
 
     public void save(JoinForm joinForm) {
         Member member = new ModelMapper().map(joinForm, Member.class);
+        member.setRoles(Role.USER);
+
         member.setUserPw(passwordEncoder.encode(joinForm.getUserPw()));
 
         memberRepository.saveAndFlush(member);
