@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.subin.bootBoard.constants.Role;
+import org.subin.bootBoard.commons.constants.Role;
 import org.subin.bootBoard.controllers.members.JoinForm;
 import org.subin.bootBoard.entities.Member;
 import org.subin.bootBoard.repositories.MemberRepository;

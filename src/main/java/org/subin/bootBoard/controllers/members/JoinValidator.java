@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.subin.bootBoard.commons.validator.MobileValidator;
-import org.subin.bootBoard.commons.validator.PasswordValidator;
+import org.subin.bootBoard.commons.validators.MobileValidator;
+import org.subin.bootBoard.commons.validators.PasswordValidator;
 import org.subin.bootBoard.repositories.MemberRepository;
 
 @Component

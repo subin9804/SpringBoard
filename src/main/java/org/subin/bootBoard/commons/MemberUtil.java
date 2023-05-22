@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.subin.bootBoard.constants.Role;
+import org.subin.bootBoard.commons.constants.Role;
 import org.subin.bootBoard.entities.Member;
 import org.subin.bootBoard.models.member.MemberInfo;
 

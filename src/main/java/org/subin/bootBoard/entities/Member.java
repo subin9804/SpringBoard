@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.subin.bootBoard.constants.Role;
+import org.subin.bootBoard.commons.constants.Role;
 
 @Entity @Builder @Data
 @NoArgsConstructor @AllArgsConstructor

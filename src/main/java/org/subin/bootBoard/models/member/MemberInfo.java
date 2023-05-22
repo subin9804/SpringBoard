@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.subin.bootBoard.constants.Role;
+import org.subin.bootBoard.commons.constants.Role;
 
 import java.util.Collection;
 

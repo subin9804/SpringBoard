@@ -1,4 +1,4 @@
-package org.subin.bootBoard.commons.validator;
+package org.subin.bootBoard.commons.validators;
 
 public interface MobileValidator {
 
