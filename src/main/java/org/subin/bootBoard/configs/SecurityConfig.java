@@ -35,7 +35,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/mypage/**").authenticated()  // 회원전용 url
-                .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 전용 url
+                //.requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 전용 url
                 .anyRequest().permitAll();  // 그외 모든 페이지는 모든 회원이 접근 가능
 
         //에러 시 정해진 페이지로 이동
