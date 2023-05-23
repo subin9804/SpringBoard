@@ -12,7 +12,7 @@ public class ConfigDeleteService {
     private final ConfigsRepository repository;
 
     public void delete(String code) {
-        Configs configs = repository.findById(code).orElse();
+        Configs configs = repository.findById(code).orElse(null);
         if(configs == null) {
             return;
         }
