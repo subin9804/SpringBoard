@@ -70,4 +70,5 @@ public class BoardConfigInfoService {
         if((role == Role.USER && !memberUtil.isLogin()) || (role == Role.ADMIN && !memberUtil.isAdmin())) {
             throw new BoardNotAllowAccessException();
         }
-}   }
+    }
+}
