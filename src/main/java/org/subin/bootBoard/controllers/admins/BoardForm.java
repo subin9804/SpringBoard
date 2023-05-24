@@ -17,7 +17,7 @@ public class BoardForm {
     @NotBlank
     private String bName;   // 게시판명
 
-    private boolean use;    // 사용 여부
+    private boolean avail;    // 사용 여부
 
     private int rowsOfPage = 20;    // 1페이지 당 게시글 수
 

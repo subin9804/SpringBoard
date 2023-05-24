@@ -17,8 +17,8 @@ public class Board extends BaseMemberEntity {
     @Column(length=60, nullable=false)
     private String bName;   // 게시판명
 
-    @Column(name="isUse")
-    private boolean use;    // 사용 여부
+    @Column(name="isAvail")
+    private boolean avail;    // 사용 여부
 
     private int rowsOfPage = 20;    // 1페이지 당 게시글 수
 

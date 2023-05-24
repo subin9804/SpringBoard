@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.subin.bootBoard.commons.configs.ConfigInfoService;
 import org.subin.bootBoard.commons.configs.ConfigSaveService;
+import org.subin.bootBoard.repositories.ConfigsRepository;
 
 @Log
 @Controller
@@ -18,6 +19,7 @@ public class ConfigController {
 
     private final ConfigSaveService saveService;
     private final ConfigInfoService infoService;
+
     private String code = "siteConfig";
 
     @GetMapping
@@ -35,6 +37,7 @@ public class ConfigController {
         commonProcess(model);
 
         saveService.save(code, configForm);
+
 
         model.addAttribute("message", "설정이 저장되었습니다.");
         return "admin/config";
