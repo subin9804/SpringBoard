@@ -49,3 +49,13 @@ input[type='radio']:checked+label {
 }
 
 .dn {display: none !import;}
+
+/** 기본 약관 스타일 */
+.terms {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+    border-radius: 3px;
+    word-break: break-all;
+}
