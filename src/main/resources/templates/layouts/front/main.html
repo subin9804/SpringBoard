@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <head>
@@ -18,7 +18,7 @@
         <th:block layout:fragment="addCss"></th:block>
 
         <script th:src="@{/js/front/common.js?v={v}(v=${siteConfig.cssJsVersion})}"></script>
-        <stript th:each="file : ${addScript}" th:src="@{/js/front/{jsFile}.js?v={v}(jsFile=${jsFile}, v=${siteConfig.cssJsVersion})}"></stript>
+        <script th:each="jsFile : ${addScript}" th:src="@{/js/front/{jsFile}.js?v={v}(jsFile=${jsFile}, v=${siteConfig.cssJsVersion})}"></script>
         <th:block layout:fragment="addScript"></th:block>
     </head>
     <body>
@@ -27,6 +27,5 @@
         <footer th:replace="~{outlines/front/footer::common}"></footer>
         <iframe name="ifrmProcess" class="dn"></iframe>
     </body>
-
 
 </html>
