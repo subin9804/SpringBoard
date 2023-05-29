@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.subin.bootBoard.entities.Member;
 
+import java.util.UUID;
+
 @Data @Builder
 @AllArgsConstructor @NoArgsConstructor
 public class BoardForm {
@@ -17,7 +19,7 @@ public class BoardForm {
     private String bId;
 
     @NotBlank
-    private String gid;
+    private String gid = UUID.randomUUID().toString();
 
     @NotBlank
     private String poster;  // 작성자

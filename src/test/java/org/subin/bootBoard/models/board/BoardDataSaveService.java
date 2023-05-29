@@ -11,7 +11,9 @@ import org.subin.bootBoard.controllers.boards.BoardForm;
 @RequiredArgsConstructor
 public class BoardDataSaveService {
 
-    public void save(BoardForm boardForm) {
+    private final BoardValidator validator;
 
+    public void save(BoardForm boardForm) {
+        //validator.check(boardForm);
     }
 }
