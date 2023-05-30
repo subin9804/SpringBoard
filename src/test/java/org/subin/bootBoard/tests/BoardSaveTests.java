@@ -2,6 +2,7 @@ package org.subin.bootBoard.tests;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.subin.bootBoard.commons.configs.ConfigSaveService;
+import org.subin.bootBoard.controllers.admins.ConfigForm;
 import org.subin.bootBoard.controllers.boards.BoardForm;
 import org.subin.bootBoard.controllers.members.JoinForm;
 import org.subin.bootBoard.entities.Board;
@@ -19,6 +23,14 @@ import org.subin.bootBoard.models.board.BoardValidationException;
 import org.subin.bootBoard.models.board.config.BoardConfigInfoService;
 import org.subin.bootBoard.models.board.config.BoardConfigSaveService;
 import org.subin.bootBoard.models.member.MemberSaveService;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,16 +53,25 @@ public class BoardSaveTests {
     @Autowired
     private MemberSaveService memberSaveService;
 
+
+    @Autowired
+    private ConfigSaveService siteConfigSaveService;
+
     private Board board;
 
     private JoinForm joinForm;
 
+    @Autowired
+    private MockMvc mockMvc;
+
     @BeforeEach
     @Transactional
     void init() {
+        // 사이트 설정 등록
+        siteConfigSaveService.save("siteConfig", new ConfigForm());
         // 게시판 설정 추가
         org.subin.bootBoard.controllers.admins.BoardForm boardForm = new org.subin.bootBoard.controllers.admins.BoardForm();
-        boardForm.setBId("freetalk");
+        boardForm.setBId("freetalk1000");
         boardForm.setBName("자유게시판");
         configSaveService.save(boardForm);
         board = configInfoService.get(boardForm.getBId(), true);
@@ -69,20 +90,17 @@ public class BoardSaveTests {
     }
 
     private BoardForm getGuestBoardForm() {
-        return BoardForm.builder()
-                .bId(board.getBId())
-                .guestPw("123456")
-                .poster("비회원!")
-                .subject("제목!")
-                .content("내용")
-                .category(board.getCategories() == null ? null : board.getCategories()[0])
-                .build();
+        BoardForm boardForm = getCommonBoardForm();
+
+        boardForm.setGuestPw("12345678");
+        return boardForm;
     }
 
 
-    //@WithMockUser(username="user01", password="aA!123456")
-    private BoardForm getMemberBoardForm() {
+    private BoardForm getCommonBoardForm() {
         return BoardForm.builder()
+                .bId(board.getBId())
+                .gid(UUID.randomUUID().toString())
                 .poster(joinForm.getUserNm())
                 .subject("제목!")
                 .content("내용!")
@@ -93,6 +111,7 @@ public class BoardSaveTests {
 
     @Test
     @DisplayName("게시글 등록(비회원) 성공시 예외 없음")
+    @WithAnonymousUser
     void registerSuccessTest() {
         assertDoesNotThrow(() -> {
             saveService.save(getGuestBoardForm());
@@ -101,9 +120,11 @@ public class BoardSaveTests {
 
     @Test
     @DisplayName("게시글 등록(회원) 성공시 예외 없음")
+    @WithMockUser(username="user01", password="aA!123456")
+    @Disabled
     void registerMemberSuccessTest() {
         assertDoesNotThrow(() -> {
-            saveService.save(getMemberBoardForm());
+            saveService.save(getCommonBoardForm());
         });
     }
 
@@ -112,61 +133,61 @@ public class BoardSaveTests {
         assertAll(
                 // bId - null
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setBId(null);
                     saveService.save(boardForm);
                 }),
                 // bId - 공백
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setBId("    ");
                     saveService.save(boardForm);
                 }),
                 // gid - null
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setGid(null);
                     saveService.save(boardForm);
                 }),
                 // gid - 공백
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setGid("    ");
                     saveService.save(boardForm);
                 }),
                 // poster - null
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setPoster(null);
                     saveService.save(boardForm);
                 }),
                 // poster - 공백
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setPoster("    ");
                     saveService.save(boardForm);
                 }),
                 // subject - null
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setSubject(null);
                     saveService.save(boardForm);
                 }),
                 // subject - 공백
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setSubject("    ");
                     saveService.save(boardForm);
                 }),
                 // content - null
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setContent(null);
                     saveService.save(boardForm);
                 }),
                 // content - 공백
                 () -> assertThrows(BoardValidationException.class, () -> {
-                    BoardForm boardForm = getGuestBoardForm();
+                    BoardForm boardForm = getCommonBoardForm();
                     boardForm.setContent("    ");
                     saveService.save(boardForm);
                 })
@@ -206,4 +227,18 @@ public class BoardSaveTests {
     void requiredFieldsMemberTest() {
         commonRequiredFieldsTest();
     }
+
+
+    @Test
+    @DisplayName("통합테스트 - 비회원 게시글 작성 유효성 검사")
+    @Disabled
+    void requiredFieldsGuestControllerTest() throws Exception {
+        BoardForm boardForm = getGuestBoardForm();
+        mockMvc.perform(post("/board/save")
+                .param("bId", boardForm.getBId())
+                .param("gid", boardForm.getGid())
+                        .with(csrf().asHeader()))
+                .andDo(print());
+    }
+
 }

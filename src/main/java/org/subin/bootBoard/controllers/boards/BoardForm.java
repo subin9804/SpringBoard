@@ -11,9 +11,9 @@ import org.subin.bootBoard.entities.Member;
 import java.util.UUID;
 
 @Data @Builder
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class BoardForm {
-    private Long id;    //게시글 번호
+    private Long id; // 게시글 번호
 
     @NotBlank
     private String bId;
@@ -22,7 +22,7 @@ public class BoardForm {
     private String gid = UUID.randomUUID().toString();
 
     @NotBlank
-    private String poster;  // 작성자
+    private String poster; // 작성자
     private String guestPw; // 비회원 비밀번호
     private String category; // 게시판 분류
 
@@ -31,5 +31,4 @@ public class BoardForm {
 
     @NotBlank
     private String content; // 내용
-
 }
