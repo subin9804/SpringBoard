@@ -7,6 +7,8 @@ import org.springframework.validation.Errors;
 import org.subin.bootBoard.commons.CommonException;
 import org.subin.bootBoard.commons.MemberUtil;
 import org.subin.bootBoard.entities.Board;
+import org.subin.bootBoard.entities.BoardData;
+import org.subin.bootBoard.models.board.BoardDataInfoService;
 import org.subin.bootBoard.models.board.BoardDataSaveService;
 import org.subin.bootBoard.models.board.config.BoardConfigInfoService;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardConfigInfoService boardConfigInfoService;
+    private final BoardDataInfoService infoService;
     private final BoardDataSaveService saveService;
     private final BoardFormValidator formValidator;
     private final HttpServletResponse response;
@@ -95,8 +98,12 @@ public class BoardController {
 
     @GetMapping("/view/{id}")
     public String view(@PathVariable Long id, Model model) {
-        commonProcess(null, "view", model);
+        BoardData boardData = infoService.get(id);
+        Board board = boardData.getBoard();
+        commonProcess(board.getBId(), "view", model);
 
+        model.addAttribute("boardData", boardData);
+        model.addAttribute("board", board);
         return "board/view";
     }
 
