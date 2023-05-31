@@ -30,6 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
+import java.util.Arrays;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -234,11 +236,28 @@ public class BoardSaveTests {
     @Disabled
     void requiredFieldsGuestControllerTest() throws Exception {
         BoardForm boardForm = getGuestBoardForm();
-        mockMvc.perform(post("/board/save")
+        String body = mockMvc.perform(post("/board/save")
                 .param("bId", boardForm.getBId())
                 .param("gid", boardForm.getGid())
                         .with(csrf().asHeader()))
-                .andDo(print());
+                .andDo(print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        ResourceBundle bundle = ResourceBundle.getBundle("messages.validations");
+        String[] messages = {
+                bundle.getString("NotBlank.boardForm.poster"),
+                bundle.getString("NotBlank.boardForm.subject"),
+                bundle.getString("NotBlank.boardForm.content"),
+                bundle.getString("NotBlank.boardForm.guestPw"),
+                bundle.getString("Size.boardForm.guestPw")
+        };
+
+        for (String message : messages) {
+            System.out.println("message = " + message);
+        }
+
     }
 
 }

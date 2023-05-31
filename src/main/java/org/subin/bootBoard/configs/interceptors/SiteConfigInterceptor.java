@@ -26,7 +26,7 @@ public class SiteConfigInterceptor implements HandlerInterceptor {
 
         /** 사이트 설정 조회 */
         Map<String, String> siteConfigs = infoService.get("siteConfig", new TypeReference<Map<String, String>>() {});
-        System.out.println(siteConfigs);
+        System.out.println("1212config: " + siteConfigs);
 
         request.setAttribute("siteConfig", siteConfigs);
 
