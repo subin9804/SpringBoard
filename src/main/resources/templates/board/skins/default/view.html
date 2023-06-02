@@ -7,7 +7,7 @@
         <div class="post_info">
             <div class="left">
                 [[#{board.poster}]] : [[*{poster}]]
-                <th:block th:if="*{member != null}" th:text="*{'(' + member.userId + ')'}"></th:block>
+                <th:block th:if="${session.memberInfo.userId != null}" th:text="*{'(' + member.userId + ')'}"></th:block>
                 / [[#{board.datetime}]] : [[*{#temporals.format(createAt, 'yyyy.MM.dd HH:mm')}]]
             </div>
             <div class="right">
@@ -19,11 +19,11 @@
         </div>  <!-- post_info -->
         <div class="content" th:utext="*{content}"></div>
         <div class="btns">
-            <a th:href="@{/board/update/(id=*{id})}" th:text="#{board.update}"></a>
-            <a th:href="@{/board/delete/(id=*{id})}" th:text="#{board.delete}"></a>
-            <a th:href="@{/board/write/(bId=*{board.bId})}" th:text="#{board.write}"></a>
+            <a th:href="@{/board/{id}/update(id=*{id})}" th:text="#{board.update}"></a>
+            <a th:href="@{/board/delete/{id}(id=*{id})}" th:text="#{board.delete}"></a>
+            <a th:href="@{/board/write/{bId}(bId=*{board.bId})}" th:text="#{board.write}"></a>
             <a th:if="${board.useReply == true}" th:href="@{/board/reply/{id}(id=*{id})}" th:text="#{board.reply}"></a>
-            <a th:href="@{/board/list/(bId=*{board.bId})}" th:text="#{board.list}"></a>
+            <a th:href="@{/board/list/{bId}(bId=*{board.bId})}" th:text="#{board.list}"></a>
         </div>
     </div>  <!-- board_view -->
 </th:block>
