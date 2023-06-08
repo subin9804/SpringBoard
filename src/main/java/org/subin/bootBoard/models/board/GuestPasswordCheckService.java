@@ -23,7 +23,7 @@ public class GuestPasswordCheckService {
         
         mode = mode == null || mode.isBlank() ? "board" : mode;
         
-        if(mode.equals("board")) {  // 일반 게시글
+        if(mode.equals("board") || mode.equals("board_delete")) {  // 일반 게시글
             BoardData boardData = infoService.get(id, "update");
             String guestPw = boardData.getGuestPw();
             boolean matched = passwordEncoder.matches(password, guestPw);
