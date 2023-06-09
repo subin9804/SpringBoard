@@ -5,6 +5,6 @@ import org.subin.bootBoard.commons.CommonException;
 
 public class FileNotFoundException extends CommonException {
     public FileNotFoundException() {
-        super(bundleError.getString("File.notExists"),HttpStatus.BAD_REQUEST);
+        super(bundleValidation.getString("File.notExists"),HttpStatus.BAD_REQUEST);
     }
 }
