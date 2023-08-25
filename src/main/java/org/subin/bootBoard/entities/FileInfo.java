@@ -31,7 +31,7 @@ public class FileInfo extends BaseMemberEntity {
     private String extension; // 파일 확장자
 
     @Column(length=120)
-    private String contentType; // 파일 형식
+    private String fileType; // 파일 형식
 
     private boolean done; // true - 그룹 작업 완료
 

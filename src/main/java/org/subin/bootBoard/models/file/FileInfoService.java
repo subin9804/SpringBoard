@@ -83,11 +83,16 @@ public class FileInfoService {
     public void addFileInfo(FileInfo item) {
        long id = item.getId();
        String extension = item.getExtension();
-       String fileName = extension == null || extension.isBlank() ? "" + id : id + "." + extension;
+       String fileName = getFileName(id, extension);
        long folder = id % 10L;
 
        // 파일 업로드 서버 경로
-       String filePath = uploadPath + folder + "/" + fileName;
+        String fileDir = uploadPath + folder;
+        String filePath = fileDir + "/" + fileName;
+        File _fileDir = new File(fileDir);
+        if(!_fileDir.exists()) {
+            _fileDir.mkdir();
+        }
 
         // 파일 서버 접속 URL(fileUrl)
         String fileUrl = request.getContextPath() + uploadUrl + folder + "/" + fileName;
@@ -119,6 +124,22 @@ public class FileInfoService {
 
     private String getUploadThumbUrl() {
         return uploadUrl + "thumbs/";
+    }
+
+    public String getThumbUrl(long id, String extension, int width, int height) {
+        long folder = id % 10L;
+
+        return String.format(getUploadThumbUrl() + folder + "/%d_%d_%s", width, height, getFileName(id, extension));
+    }
+
+    public String getThumbPath(long id, String extension, int width, int height) {
+        long folder = id % 10L;
+
+        return String.format(getUploadThumbPath() + folder + "/%d_%d_%s", width, height, getFileName(id, extension));
+    }
+
+    private String getFileName(long id, String extension) {
+        return extension == null || extension.isBlank() ? "" + id : id + "." + extension;
     }
 
     // 내부클래스
