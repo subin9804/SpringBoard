@@ -50,12 +50,18 @@ public class FileUploadService {
                 File _file = new File(item.getFilePath());
                 file.transferTo(_file);
 
+                /** 썸네일 생성 처리 */
                 if(fileType.indexOf("image") != -1) {   // 이미지 형식 파일
+                    String thumbPath = infoService.getThumbPath(item.getId(), item.getExtension(), width, height);
+                    String thumbUrl = infoService.getThumbUrl(item.getId(), item.getExtension(), width, height);
 
-                    File _thumb = new File(infoService.getThumbPath(item.getId(), item.getExtension(), width, height));
+                    item.setThumbsPath(new String[] {thumbPath});
+                    item.setThumbsUrl(new String[] {thumbUrl});
+
+                    File _thumb = new File(thumbPath);
                     Thumbnails.of(_file)
-                            .size(150, 150)
-                            .toFile();
+                            .size(width, height)
+                            .toFile(_thumb);
                 }
                 uploadedFiles.add(item);
             } catch (IOException e) {
