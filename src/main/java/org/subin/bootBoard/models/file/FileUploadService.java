@@ -20,6 +20,9 @@ public class FileUploadService {
     private final FileInfoService infoService;
     private final FileInfoRepository repository;
 
+    private int width = 150;
+    private int height = 150;
+
     public List<FileInfo> upload(MultipartFile[]files, String gid, String location) {
         gid = gid == null || gid.isBlank() ? UUID.randomUUID().toString() : gid;
         List<FileInfo> uploadedFiles = new ArrayList<>();
@@ -48,8 +51,7 @@ public class FileUploadService {
                 file.transferTo(_file);
 
                 if(fileType.indexOf("image") != -1) {   // 이미지 형식 파일
-                    int width = 150;
-                    int height = 150;
+
                     File _thumb = new File(infoService.getThumbPath(item.getId(), item.getExtension(), width, height));
                     Thumbnails.of(_file)
                             .size(150, 150)
