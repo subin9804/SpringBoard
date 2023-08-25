@@ -22,19 +22,23 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${file.upload.path}")
     private String fileUploadPath;
 
+    @Value("${file.upload.url}")
+    private String fileUploadUrl;
+
     // 사이트 설정 유지 인터셉터
     private final SiteConfigInterceptor siteConfigInterceptor;
 
     // 임시 메인 페이지
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        /** 파일 업로드 정적 경로 설정 */
         registry.addViewController("/")
                 .setViewName("main/index");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploads/**")
+        registry.addResourceHandler(fileUploadUrl + "**")
                 .addResourceLocations("file:///" + fileUploadPath);
     }
 
