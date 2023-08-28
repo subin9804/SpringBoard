@@ -8,20 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.subin.bootBoard.commons.rests.JSONData;
 import org.subin.bootBoard.entities.FileInfo;
-import org.subin.bootBoard.models.file.FileDeleteService;
 import org.subin.bootBoard.models.file.FileDownloadService;
 import org.subin.bootBoard.models.file.FileUploadService;
 
 import java.util.List;
 
-@RestController
+@RestController("restFileController")
 @RequestMapping("/file")
 @RequiredArgsConstructor
 public class FileController {
 
     private final FileUploadService uploadService;
     private final FileDownloadService downloadService;
-    private final FileDeleteService deleteService;
+    // private final FileDeleteService deleteService;
 
     /**
      * 파일 업로드 처리
@@ -41,18 +40,18 @@ public class FileController {
     }
 
     @RequestMapping("/download/{id}")
-    public void download(Long id) {
+    public void download(Long id)  {
         downloadService.download(id);
     }
 
-    @RequestMapping("/delete/{id}")
-    public ResponseEntity<JSONData<Long>> delete(Long id) {
-        deleteService.delete(id);
-
-        JSONData<Long> data = new JSONData<>();
-        data.setSuccess(true);
-        data.setData(id);
-
-        return ResponseEntity.ok(data);
-    }
+//    @RequestMapping("/delete/{id}")
+//    public ResponseEntity<JSONData<Long>> delete(Long id) {
+//        deleteService.delete(id);
+//
+//        JSONData<Long> data = new JSONData<>();
+//        data.setSuccess(true);
+//        data.setData(id);
+//
+//        return ResponseEntity.ok(data);
+//    }
 }

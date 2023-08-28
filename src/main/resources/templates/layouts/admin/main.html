@@ -6,6 +6,7 @@
         <meta name="_csrf" th:content="${_csrf.token}">
         <meta name="_csrf_header" th:content="${_csrf.headerName}">
         <meta name="description" th:content="${@siteConf.get('siteDescription')}">
+<!--        <meta name="_cts_path" th:content="${#ctx.request.getContextPath}">-->
 
         <title>
             <th:block th:if="${pageTitle != null}" th:text="${pageTitle + '::'}"></th:block>

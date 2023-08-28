@@ -5,7 +5,11 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.subin.bootBoard.commons.CommonException;
 import org.subin.bootBoard.commons.MemberUtil;
 import org.subin.bootBoard.entities.Board;
@@ -13,12 +17,7 @@ import org.subin.bootBoard.entities.BoardData;
 import org.subin.bootBoard.entities.Member;
 import org.subin.bootBoard.models.board.*;
 import org.subin.bootBoard.models.board.config.BoardConfigInfoService;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.subin.bootBoard.models.board.config.BoardNotAllowAccessException;
-import org.subin.bootBoard.models.member.MemberInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -217,9 +216,10 @@ public class BoardController {
         // 글 작성, 수정시 필요한 자바스크립트
         if (action.equals("write") || action.equals("update")) {
             if (board.isUseEditor()) { // 에디터 사용 경우
-                addScript.add("ckeditor/ckeditor");
+                addScript.add("front/ckeditor/ckeditor");
             }
-            addScript.add("board/form");
+            addScript.add("fileManager");
+            addScript.add("front/board/form");
         }
 
         // 공통 필요 속성 추가

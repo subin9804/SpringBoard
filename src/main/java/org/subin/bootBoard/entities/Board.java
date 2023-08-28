@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.subin.bootBoard.commons.constants.Role;
 
-import java.util.Arrays;
-
 @Entity @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class Board extends BaseMemberEntity {

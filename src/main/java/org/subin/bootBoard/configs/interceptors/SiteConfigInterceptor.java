@@ -8,13 +8,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.subin.bootBoard.commons.configs.ConfigInfoService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 사이트 설정 유지
  */
-@Component("siteConf")
+@Component("siteConf")  // 빈에 siteConf라는 이름으로 등록
 @RequiredArgsConstructor
 public class SiteConfigInterceptor implements HandlerInterceptor {
 
@@ -26,7 +25,6 @@ public class SiteConfigInterceptor implements HandlerInterceptor {
 
         /** 사이트 설정 조회 */
         Map<String, String> siteConfigs = infoService.get("siteConfig", new TypeReference<Map<String, String>>() {});
-        System.out.println("1212config: " + siteConfigs);
 
         request.setAttribute("siteConfig", siteConfigs);
 

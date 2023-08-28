@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="form" th:object="${boardForm}">
         <div class="errors global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-        <input th:if="${board.useAttachImage && board.useAttachFile}" type="file" id="file" class="dn">
+        <input th:if="${board.useAttachImage && board.useAttachFile}" type="file" id="file" class="dn" multiple>
         <dl>
             <dt th:text="#{board.poster}"></dt>
             <dd>
@@ -40,7 +40,8 @@
                 <div class="errors" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
 
                 <th:block th:if="${board.useEditor && board.useAttachImage}">
-                    <button type="button" class="attachFiles image" th:text="#{board.attach.image}"></button>
+                    <div class="uploaded_images" id="attach_images"></div>
+                    <button type="button" data-location="image" class="attachFiles image" data-image-only="true" th:text="#{board.attach.image}"></button>
                     <div class="attachedFiles images"></div>
                 </th:block>
             </dd>
@@ -48,9 +49,13 @@
         <dl th:if="${board.useAttachFile == true}">
             <dt th:text="#{board.attach.file}"></dt>
             <dd>
-                <button type="button" class="attachFiles" th:text="#{board.attach.file}"></button>
+                <div class="uploaded_images" id="attach_files"></div>
+                <button type="button" data-location="file" class="attachFiles" th:text="#{board.attach.file}"></button>
                 <div class="attachedFiles files"></div>
             </dd>
         </dl>
+        <div>11</div>
+
+        <script th:replace="~{commons/_file_tpl::tpl_image1}"></script>
     </th:block>
 </html>
